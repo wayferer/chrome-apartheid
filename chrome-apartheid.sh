@@ -13,7 +13,7 @@ set -e
 
 cd /Users/$USER/Library/Application\ Support/Google/Chrome
 
-CDI="cdi-chrome-multiple-profile-instances-in-dock-with-different-icons.d"
+CDI="cdi-chrome.d"
 APPLESCRIPTS="$CDI/Applescript-Sources"
 LAUNCHERS="$CDI/Chrome-Launchers"
 RUNTIMES="$CDI/Chrome-Runtimes"
@@ -42,8 +42,8 @@ while read PROFILE; do
   LINK="$(echo $PROFILE | awk -F\; '{print $2}' | sed 's/\ /\-/g' | sed 's/"//g' | sed 's/^/cdi-profile-/g')"
   # Like: cdi-profile-webmaster-at-example.org
 
-  APP="$(echo $LINK | sed 's/^cdi-profile-//g' | sed 's/$/-DO-NOT-RUN-DIRECTLY-JUST-USE-FOR-CHANGING-ICON-cdi\.app/g')"
-  # Like: webmaster-at-example.org-DO-NOT-RUN-DIRECTLY-JUST-USE-FOR-CHANGING-ICON-cdi.app
+  APP="$(echo $LINK | sed 's/^cdi-profile-//g' | sed 's/$/\.app/g')"
+  # Like: webmaster-at-example.org.app
 
   ICONQ="$(echo -e 'Icon\015')"
   #ICON="$(echo -e 'Icon\015')/..namedfork/rsrc"
@@ -54,7 +54,7 @@ while read PROFILE; do
 
   TXT="$APPLESCRIPTS/$(echo $LINK | sed 's:^cdi-profile-:chrome-:g' | sed 's/$/\.txt/g')"
   # Like:
-  # cdi-chrome-multiple-profile-instances-in-dock-with-different-icons.d
+  # cdi-chrome.d
   # /Applescript-Sources/chrome-webmaster-at-example.org.txt
 
   test -L "$LINK" || ln -s "$DIR" "$LINK"
@@ -96,7 +96,7 @@ echo 'Done with automated portion. Now you should manually:'
 echo
 echo '1. Add (identical) icons of your choice to each pair of profile Launchers'
 echo '   / Runtimes in the folder ~/Library/Application Support/Google/Chrome/'
-echo '   cdi-chrome-multiple-profile-instances-in-dock-with-different-icons.d'
+echo '   cdi-chrome.d'
 echo '   (google for numerous guides on how to change mac os x app icons)'
 echo
 echo '2. From the finder, drag the "Chrome-Launchers" folder to the stacks area'
